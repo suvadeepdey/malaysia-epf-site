@@ -175,9 +175,9 @@ async function buildBreadcrumbs() {
 
 /**
  * Builds the search/language/member-login controls shown on the right of the nav.
- * @param {Element} nav The nav element
+ * @returns {{tools: Element, searchContainer: Element}} the tools element and its search overlay
  */
-function buildNavTools(nav) {
+function buildNavTools() {
   const tools = document.createElement('div');
   tools.className = 'nav-tools';
 
@@ -190,7 +190,6 @@ function buildNavTools(nav) {
 
   const searchContainer = document.createElement('div');
   searchContainer.className = 'search-container';
-  searchContainer.hidden = true;
   searchContainer.innerHTML = `
     <div class="search-input-wrapper">
       <div class="search-input-container">
@@ -201,7 +200,7 @@ function buildNavTools(nav) {
   searchToggle.addEventListener('click', () => {
     const expanded = searchToggle.getAttribute('aria-expanded') === 'true';
     searchToggle.setAttribute('aria-expanded', String(!expanded));
-    searchContainer.hidden = expanded;
+    searchContainer.classList.toggle('is-open', !expanded);
     if (!expanded) searchContainer.querySelector('input').focus();
   });
 
@@ -217,7 +216,7 @@ function buildNavTools(nav) {
 
   tools.append(searchToggle, langToggle, loginLink);
   decorateIcons(tools);
-  nav.append(tools, searchContainer);
+  return { tools, searchContainer };
 }
 
 /**
@@ -258,6 +257,10 @@ export default async function decorate(block) {
       if (currentSection && sectionName === currentSection.toLowerCase()) {
         navSection.classList.add('active');
       }
+      const loginMeta = document.createElement('span');
+      loginMeta.className = 'nav-drop-login';
+      loginMeta.innerHTML = '<span class="icon icon-user"></span>Login';
+      navSection.append(loginMeta);
       navSection.addEventListener('click', () => {
         if (isDesktop.matches) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
@@ -266,18 +269,20 @@ export default async function decorate(block) {
         }
       });
     });
+    decorateIcons(navSections);
   }
 
-  buildNavTools(nav);
+  const { tools, searchContainer } = buildNavTools();
 
-  // hamburger for mobile
+  // hamburger for mobile, placed after the search/language icons
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
     </button>`;
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
-  nav.prepend(hamburger);
+  tools.append(hamburger);
+  nav.append(tools, searchContainer);
   nav.setAttribute('aria-expanded', 'false');
   // prevent mobile nav behavior on window resize
   toggleMenu(nav, navSections, isDesktop.matches);
