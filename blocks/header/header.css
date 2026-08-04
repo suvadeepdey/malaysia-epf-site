@@ -482,6 +482,10 @@ html[dir="rtl"] header .search-input-container input[type="search"]::-webkit-sea
     overflow-y: auto;
   }
 
+  header nav .nav-sections .default-content-wrapper {
+    width: 100%;
+  }
+
   header nav .nav-sections ul {
     display: flex;
     flex-direction: column;
@@ -521,7 +525,7 @@ html[dir="rtl"] header .search-input-container input[type="search"]::-webkit-sea
     height: 16px;
   }
 
-  header nav .nav-sections .nav-drop::after {
+  header nav .nav-sections .nav-drop-login::after {
     content: '';
     display: inline-block;
     margin-left: 8px;
