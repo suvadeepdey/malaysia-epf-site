@@ -1,4 +1,4 @@
-import { fetchPlaceholders, getMetadata } from '../../scripts/aem.js';
+import { fetchPlaceholders, getMetadata, decorateIcons } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -174,6 +174,53 @@ async function buildBreadcrumbs() {
 }
 
 /**
+ * Builds the search/language/member-login controls shown on the right of the nav.
+ * @param {Element} nav The nav element
+ */
+function buildNavTools(nav) {
+  const tools = document.createElement('div');
+  tools.className = 'nav-tools';
+
+  const searchToggle = document.createElement('button');
+  searchToggle.type = 'button';
+  searchToggle.className = 'nav-icon-button search-toggle';
+  searchToggle.setAttribute('aria-label', 'Search');
+  searchToggle.setAttribute('aria-expanded', 'false');
+  searchToggle.innerHTML = '<span class="icon icon-search"></span>';
+
+  const searchContainer = document.createElement('div');
+  searchContainer.className = 'search-container';
+  searchContainer.hidden = true;
+  searchContainer.innerHTML = `
+    <div class="search-input-wrapper">
+      <div class="search-input-container">
+        <input id="search-input" type="search" placeholder="Search" aria-label="Search">
+      </div>
+    </div>`;
+
+  searchToggle.addEventListener('click', () => {
+    const expanded = searchToggle.getAttribute('aria-expanded') === 'true';
+    searchToggle.setAttribute('aria-expanded', String(!expanded));
+    searchContainer.hidden = expanded;
+    if (!expanded) searchContainer.querySelector('input').focus();
+  });
+
+  const langToggle = document.createElement('a');
+  langToggle.className = 'nav-icon-button lang-toggle';
+  langToggle.href = '#';
+  langToggle.textContent = 'EN';
+
+  const loginLink = document.createElement('a');
+  loginLink.className = 'nav-login';
+  loginLink.href = '#';
+  loginLink.innerHTML = '<span class="icon icon-user"></span><span class="label">Member Login</span>';
+
+  tools.append(searchToggle, langToggle, loginLink);
+  decorateIcons(tools);
+  nav.append(tools, searchContainer);
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -204,8 +251,13 @@ export default async function decorate(block) {
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
+    const currentSection = window.location.pathname.split('/').filter(Boolean)[0];
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
+      navSection.classList.add('nav-drop');
+      const sectionName = getDirectTextContent(navSection).toLowerCase();
+      if (currentSection && sectionName === currentSection.toLowerCase()) {
+        navSection.classList.add('active');
+      }
       navSection.addEventListener('click', () => {
         if (isDesktop.matches) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
@@ -216,13 +268,7 @@ export default async function decorate(block) {
     });
   }
 
-  const navTools = nav.querySelector('.nav-tools');
-  if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
-    }
-  }
+  buildNavTools(nav);
 
   // hamburger for mobile
   const hamburger = document.createElement('div');
