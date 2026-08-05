@@ -19,19 +19,25 @@
       "plugins": {
         "da": {
           "rows": 1,
-          "columns": 4,
+          "columns": 6,
           "fields": [
             { "name": "backgroundImage", "selector": "div:nth-child(1)>picture>img[src]" },
             { "name": "backgroundImageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
             { "name": "text", "selector": "div:nth-child(2)" },
             { "name": "style", "selector": "div:nth-child(3)>p" },
-            { "name": "cta", "selector": "div:nth-child(4)>p" }
+            { "name": "ctaLabel", "selector": "div:nth-child(4)>p" },
+            { "name": "ctaStyle", "selector": "div:nth-child(5)>p" },
+            { "name": "ctaLink", "selector": "div:nth-child(6)>a[href]" }
           ]
         }
       }
     }
   ],
   "models": [
+    {
+      "id": "carousel",
+      "fields": []
+    },
     {
       "id": "carousel-card",
       "fields": [
@@ -87,10 +93,17 @@
           "required": true
         },
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaLabel",
+          "label": "CTA Label",
+          "value": ""
+        },
+        {
           "component": "select",
           "valueType": "string",
-          "name": "cta",
-          "label": "CTA",
+          "name": "ctaStyle",
+          "label": "CTA Style",
           "options": [
             {
               "name": "Link",
@@ -110,6 +123,14 @@
             }
           ],
           "value": "link",
+          "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaLink",
+          "label": "CTA Link",
+          "value": "",
           "required": true
         }
       ]
