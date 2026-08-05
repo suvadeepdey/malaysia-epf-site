@@ -6,6 +6,9 @@ function setCarouselItems(number) {
   document.querySelector('.carousel > ul')?.style.setProperty('--items-per-view', number);
 }
 
+// backgroundImage, text, style, ctaLabel, ctaStyle, ctaLink
+const CARD_COLUMNS = 6;
+
 export default function decorate(block) {
   let i = 0;
   setCarouselItems(2);
@@ -15,7 +18,7 @@ export default function decorate(block) {
   // Find the first row index that should be a carousel item
   let carouselStartIndex = -1;
   [...block.children].forEach((row, index) => {
-    if (row.children.length === 4 && carouselStartIndex === -1) {
+    if (row.children.length === CARD_COLUMNS && carouselStartIndex === -1) {
       carouselStartIndex = index;
     }
   });
@@ -34,9 +37,9 @@ export default function decorate(block) {
         li.className = cardStyle;
       }
 
-      const ctaDiv = row.children[3];
-      const ctaParagraph = ctaDiv?.querySelector('p');
-      const ctaStyle = ctaParagraph?.textContent?.trim() || 'default';
+      const ctaLabel = row.children[3]?.querySelector('p')?.textContent?.trim() || '';
+      const ctaStyle = row.children[4]?.querySelector('p')?.textContent?.trim() || 'link';
+      const ctaLink = row.children[5]?.querySelector('a[href]')?.getAttribute('href') || '';
 
       moveInstrumentation(row, li);
       while (row.firstElementChild) li.append(row.firstElementChild);
@@ -46,28 +49,27 @@ export default function decorate(block) {
           div.className = 'cards-card-image';
         } else if (index === 1) {
           div.className = 'cards-card-body';
-        } else if (index === 2) {
-          div.className = 'cards-config';
-          const p = div.querySelector('p');
-          if (p) {
-            p.style.display = 'none';
-          }
-        } else if (index === 3) {
-          div.className = 'cards-config';
-          const p = div.querySelector('p');
-          if (p) {
-            p.style.display = 'none';
-          }
         } else {
-          div.className = 'cards-card-body';
+          // style, ctaLabel, ctaStyle, ctaLink: config fields, not rendered directly
+          div.className = 'cards-config';
+          const p = div.querySelector('p');
+          if (p) {
+            p.style.display = 'none';
+          }
         }
       });
 
-      const buttonContainers = li.querySelectorAll('p.button-container');
-      buttonContainers.forEach((buttonContainer) => {
-        buttonContainer.classList.remove('default', 'cta-button', 'cta-button-secondary', 'cta-button-dark', 'cta-default');
-        buttonContainer.classList.add(ctaStyle);
-      });
+      if (ctaLink) {
+        const cardBody = li.querySelector('.cards-card-body');
+        const buttonContainer = document.createElement('p');
+        buttonContainer.className = `button-container ${ctaStyle}`;
+        const link = document.createElement('a');
+        link.href = ctaLink;
+        link.className = 'button';
+        link.textContent = ctaLabel || ctaLink;
+        buttonContainer.append(link);
+        cardBody?.append(buttonContainer);
+      }
 
       slider.append(li);
     } else {
