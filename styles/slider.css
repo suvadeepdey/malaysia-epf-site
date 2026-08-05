@@ -21,35 +21,6 @@
   padding: 0;
 }
  
-.carousel-container .button-container button {
-  background-color: var(--background-color);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  right: 10%;
-  cursor: pointer;
-  position: absolute;
-  top: 4%;
-}
-
-.carousel-container .button-container button:disabled {
-  opacity: 0.5;
-  background-color: #909090;
-  color: rgb(0 41 77 / 42%);
-  cursor: unset;
-}
-
-html[dir="rtl"] .carousel-container .button-container button {
-  background-color: var(--background-color);
-  border: none;
-  padding: 6px 11px;
-  right: auto;
-  left: 3%;
-  cursor: pointer;
-  position: absolute;
-  top: 40%;
-}
-
 .carousel-container > .default-content-wrapper > p:first-child {
   font-weight: 800;
   font-size: 16px;
@@ -91,52 +62,6 @@ html[dir="rtl"] .carousel-container .button-container button {
 html[dir="rtl"] .section > div.carousel-wrapper {
   padding-left: 0;
   padding-right: 108px;
-}
-  
-.carousel > ul {
-  padding: 0;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 32%;
-  grid-template-rows: 1fr;
-  gap: 0 25px;
-  overflow: scroll hidden;
-  scroll-snap-type: both mandatory;
-  scroll-padding: 0;
-  scrollbar-width: none;
-}
-  
-.carousel > ul > li {
-  scroll-snap-align: start;
-  display: inline-flex;
-  border: 0;
-  width: auto;
-  height: auto;
-}
-  
-.carousel > ul > li > .cards-card-image {
-  background-color: #fcfcfc;
-  border-radius: 10px;
-  aspect-ratio: auto;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-}
-  
-.carousel .button-container .next {
-  margin: 0;
-  right: 5%;
-}
-
-.carousel .button-container .prev {
-  margin: 0;
-  right: 10%;
-}
-
-.carousel .button-container .prev:hover,
-.carousel .button-container .next:hover {
-  opacity: 0.7;
-  transition: 0.2s;
 }
   
 .carousel .cards-card-body {
@@ -213,36 +138,6 @@ html[dir="rtl"] .section > div.carousel-wrapper {
     padding-right: 0;
   }
 
-  .carousel-container .button-container button {
-    padding: 8px 12px;
-    right: 3%;
-    display: none;
-  }
-
-  .carousel-container .button-container button:disabled {
-    opacity: 0.5;
-  }
-  
-  html[dir="rtl"] .carousel-container .button-container button {
-    padding: 8px 12px;
-    left: 3%;
-  }
-
-  .carousel > ul {
-    grid-auto-columns: 32%;
-    gap: 0 25px;
-  }
-
-  .carousel > .prev,
-  .carousel > .next {
-    right: var(--nav-height); 
-  }
-
-  html[dir="rtl"] .carousel > .prev,
-  .carousel > .next {
-    left: var(--nav-height); 
-  }
-
   .carousel .cards-card-body {
     line-height: 17px;
   }
@@ -271,23 +166,6 @@ html[dir="rtl"] .section > div.carousel-wrapper {
 }
   
 @media only screen and (width < 768px) {
-  .carousel > .prev,
-  .carousel > .next {
-    right: var(--nav-padding);
-    top: 20%; 
-    cursor: pointer;
-    position: absolute;
-    color: white;
-    font-weight: bold;
-    border-radius: 3px 0 0 3px;
-  }
-
-  html[dir="rtl"] .carousel > .prev,
-  .carousel > .next {
-    left: var(--nav-padding);
-    top: 20%; 
-  }
-  
   .section.carousel-container {
     flex-direction: column;
     padding: 48px 0;
@@ -337,11 +215,6 @@ html[dir="rtl"] .section > div.carousel-wrapper {
 
   .carousel-container .button-container button:disabled {
     opacity: 0.5;
-  }
-
-  .carousel > ul {
-    grid-auto-columns: 32%;
-    gap: 0 25px;
   }
 }
 
