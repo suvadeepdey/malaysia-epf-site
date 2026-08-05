@@ -27,16 +27,35 @@ function arrow(props) {
   return p;
 }
 
+// Builds the pagination dots shown above the slider
+function dots(itemList) {
+  const ol = document.createElement('ol');
+  ol.className = 'carousel-dots';
+  itemList.forEach((item, index) => {
+    const li = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('aria-label', `Go to slide ${index + 1}`);
+    if (index === 0) button.classList.add('active');
+    li.append(button);
+    ol.append(li);
+  });
+  return ol;
+}
+
 export default async function createSlider(block) {
   const nextBtn = 'next';
   const prevBtn = 'prev';
+  const itemList = [...block.querySelectorAll(':scope > ul > li')];
+  const dotsList = dots(itemList);
+  block.append(dotsList);
   block.append(arrow(`${nextBtn}`));
   block.append(arrow(`${prevBtn}`));
 
   // Call function after page load, scoped to this carousel instance
   const moveRightBtns = block.querySelectorAll(`.${nextBtn}`);
   const moveLeftBtns = block.querySelectorAll(`.${prevBtn}`);
-  const itemList = [...block.querySelectorAll(':scope > ul > li')];
+  const dotButtons = [...dotsList.querySelectorAll('button')];
   const observerOptions = {
     rootMargin: '0px',
     threshold: 0.25,
@@ -83,6 +102,17 @@ export default async function createSlider(block) {
     }, true);
   });
 
+  // Dot Event Handler
+  dotButtons.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      const carousel = btn.closest('.carousel-container').querySelector('.carousel');
+      const carouselItems = carousel.querySelector('ul');
+      const totalItems = carouselItems.children.length || 1;
+      const itemWidth = parseInt(carouselItems.scrollWidth / totalItems, 10);
+      carouselItems.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+    });
+  });
+
   // Observer Callback Function
   const callBack = (entries) => {
     const dir = document.documentElement.dir || 'ltr';
@@ -107,6 +137,11 @@ export default async function createSlider(block) {
 
     moveLeftBtns.forEach((btn) => { btn.disabled = disableLeftBtn; });
     moveRightBtns.forEach((btn) => { btn.disabled = disableRightBtn; });
+
+    const activeIndex = items.findIndex((item) => item.classList.contains('active'));
+    dotButtons.forEach((btn, index) => {
+      btn.classList.toggle('active', index === activeIndex);
+    });
   };
 
   // Create Observer instance
