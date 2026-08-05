@@ -33,10 +33,10 @@ export default async function createSlider(block) {
   block.append(arrow(`${nextBtn}`));
   block.append(arrow(`${prevBtn}`));
 
-  // Call function after page load
-  const moveRightBtns = document.querySelectorAll(`.${nextBtn}`);
-  const moveLeftBtns = document.querySelectorAll(`.${prevBtn}`);
-  const itemList = [...document.querySelectorAll('.carousel > ul > li')];
+  // Call function after page load, scoped to this carousel instance
+  const moveRightBtns = block.querySelectorAll(`.${nextBtn}`);
+  const moveLeftBtns = block.querySelectorAll(`.${prevBtn}`);
+  const itemList = [...block.querySelectorAll(':scope > ul > li')];
   const observerOptions = {
     rootMargin: '0px',
     threshold: 0.25,
@@ -63,7 +63,7 @@ export default async function createSlider(block) {
   }
 
   // Button Event Handler
-  moveLeftBtns.forEach(btn => {
+  moveLeftBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const carousel = btn.closest('.carousel-container').querySelector('.carousel');
       const carouselItems = carousel.querySelector('ul');
@@ -73,7 +73,7 @@ export default async function createSlider(block) {
     }, true);
   });
 
-  moveRightBtns.forEach(btn => {
+  moveRightBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const carousel = btn.closest('.carousel-container').querySelector('.carousel');
       const carouselItems = carousel.querySelector('ul');
@@ -86,54 +86,27 @@ export default async function createSlider(block) {
   // Observer Callback Function
   const callBack = (entries) => {
     const dir = document.documentElement.dir || 'ltr';
-    let disableLeftBtn = false;
-    let disableRightBtn = false;
-
-    if (dir === 'rtl') {
-      document.querySelector('.next').style.right = 'auto';
-      document.querySelector('.prev').style.right = 'auto';
-      document.querySelector('.next').style.left = '0';
-      document.querySelector('.prev').style.left = '0';
-    }
 
     entries.forEach((entry) => {
-      const {
-        target,
-      } = entry;
+      const { target } = entry;
+      target.style.transition = 'opacity 0.3s ease-in-out';
       if (entry.intersectionRatio >= 0.25) {
         target.classList.remove('opacity');
         target.classList.add('active');
-        target.style.transition = 'opacity 0.3s ease-in-out';
       } else {
         target.classList.remove('active');
         target.classList.add('opacity');
-        target.style.transition = 'opacity 0.3s ease-in-out';
       }
     });
 
-    try {
-      if (entries[0].target.parentElement.children[0].className === 'active') {
-        if (dir === 'rtl') {
-          disableLeftBtn = false;
-          disableRightBtn = true;
-        } else {
-          disableLeftBtn = true;
-          disableRightBtn = false;
-        }
-      } else if (entries[0].target.parentElement.children[entries[0].target.parentElement.children.length - 1].className === 'active') {
-        if (dir === 'rtl') {
-          disableLeftBtn = true;
-          disableRightBtn = false;
-        } else {
-          disableLeftBtn = false;
-          disableRightBtn = true;
-        }
-      }
-      moveLeftBtn.disabled = disableLeftBtn;
-      moveRightBtn.disabled = disableRightBtn;
-    } catch (e) {
-      /* error structure was not as expected */
-    }
+    const items = itemList;
+    const isFirstActive = items[0]?.classList.contains('active');
+    const isLastActive = items[items.length - 1]?.classList.contains('active');
+    const disableLeftBtn = dir === 'rtl' ? isLastActive : isFirstActive;
+    const disableRightBtn = dir === 'rtl' ? isFirstActive : isLastActive;
+
+    moveLeftBtns.forEach((btn) => { btn.disabled = disableLeftBtn; });
+    moveRightBtns.forEach((btn) => { btn.disabled = disableRightBtn; });
   };
 
   // Create Observer instance
