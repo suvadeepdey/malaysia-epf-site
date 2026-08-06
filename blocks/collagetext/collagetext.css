@@ -1,0 +1,137 @@
+/* --------------------------
+   Base Layout (mobile first)
+   Bento-style collage: authors tag each tile as size-large,
+   size-medium or size-small; grid-auto-flow: dense packs whatever
+   mix of sizes/order authors provide, matching the reference collage.
+--------------------------- */
+.collagetext-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(180px, auto);
+  grid-auto-flow: dense;
+  gap: var(--spacing-small);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.collagetext-item {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.collagetext-item.size-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.collagetext-item .collagetext-item-link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  white-space: normal;
+  overflow: visible;
+}
+
+.collagetext-item-image {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--border-radius-medium);
+  background-color: var(--light-color);
+}
+
+.collagetext-item-image picture,
+.collagetext-item-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* decorative "article" indicator shown in the reference collage */
+.collagetext-item-image::after {
+  content: '';
+  position: absolute;
+  top: var(--spacing-small);
+  right: var(--spacing-small);
+  width: var(--size-icon-regular);
+  height: var(--size-icon-regular);
+  background-color: var(--text-light);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2h8l4 4v16H6z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.collagetext-item-category {
+  margin-top: var(--spacing-xsmall);
+}
+
+.collagetext-item-category p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: var(--body-font-weight-bold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.collagetext-item-heading {
+  margin-top: var(--spacing-xtiny);
+}
+
+.collagetext-item-heading p,
+.collagetext-item-heading h1,
+.collagetext-item-heading h2,
+.collagetext-item-heading h3,
+.collagetext-item-heading h4 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  font-size: var(--heading-font-size-xs);
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+/* --------------------------
+   Tablet (600px+)
+--------------------------- */
+@media (width >= 600px) {
+  .collagetext-list {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(220px, auto);
+  }
+}
+
+/* --------------------------
+   Desktop (900px+)
+--------------------------- */
+@media (width >= 900px) {
+  .collagetext-list {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(260px, auto);
+    gap: var(--spacing-regular);
+  }
+
+  .collagetext-item-heading p,
+  .collagetext-item-heading h1,
+  .collagetext-item-heading h2,
+  .collagetext-item-heading h3,
+  .collagetext-item-heading h4 {
+    font-size: var(--heading-font-size-s);
+  }
+}
+
+/* --------------------------
+   Large Desktop (1200px+)
+--------------------------- */
+@media (width >= 1200px) {
+  .collagetext-list {
+    gap: var(--spacing-large);
+  }
+}
