@@ -9,6 +9,9 @@ export default function decorate(block) {
   const ul = document.createElement('ul');
   ul.className = 'collagetext-list';
 
+  const largeItems = [];
+  const otherItems = [];
+
   [...block.children].forEach((row) => {
     const [imageDiv, categoryDiv, headingDiv, linkDiv, sizeDiv] = [...row.children];
 
@@ -51,8 +54,16 @@ export default function decorate(block) {
       li.append(link);
     }
 
-    ul.append(li);
+    (size === 'size-large' ? largeItems : otherItems).push(li);
   });
+
+  // Interleave tiles so every size-large tile is anchored by two smaller
+  // tiles, regardless of the order authors place rows in - this reproduces
+  // the bento collage look even when a large tile is authored last.
+  while (largeItems.length || otherItems.length) {
+    if (largeItems.length) ul.append(largeItems.shift());
+    for (let i = 0; i < 2 && otherItems.length; i += 1) ul.append(otherItems.shift());
+  }
 
   ul.querySelectorAll('picture > img').forEach((img) => {
     const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
