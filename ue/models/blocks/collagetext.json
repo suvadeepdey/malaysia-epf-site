@@ -1,0 +1,97 @@
+{
+  "definitions": [
+    {
+      "title": "Collage Text",
+      "id": "collagetext",
+      "model": "collagetext",
+      "filter": "collagetext",
+      "plugins": {
+        "da": {
+          "rows": 0,
+          "columns": 0
+        }
+      }
+    },
+    {
+      "title": "Collage Text Item",
+      "id": "collagetext-item",
+      "model": "collagetext-item",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 5,
+          "fields": [
+            { "name": "image", "selector": "div:nth-child(1)>picture>img[src]" },
+            { "name": "imageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
+            { "name": "categoryText", "selector": "div:nth-child(2)>p" },
+            { "name": "headingText", "selector": "div:nth-child(3)" },
+            { "name": "link", "selector": "div:nth-child(4)>p>a[href]" },
+            { "name": "size", "selector": "div:nth-child(5)>:first-child" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "collagetext-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt Text",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "categoryText",
+          "label": "Category (Eyebrow)",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "headingText",
+          "label": "Heading / Sub-heading Text",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "link",
+          "label": "Link",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "size",
+          "label": "Tile Size",
+          "options": [
+            { "name": "Large", "value": "size-large" },
+            { "name": "Medium", "value": "size-medium" },
+            { "name": "Small", "value": "size-small" }
+          ],
+          "value": "size-medium"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "collagetext",
+      "components": [
+        "collagetext-item"
+      ]
+    }
+  ]
+}
