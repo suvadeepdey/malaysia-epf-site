@@ -140,7 +140,7 @@
           "plugins": {
             "da": {
               "rows": 1,
-              "columns": 5,
+              "columns": 6,
               "fields": [
                 {
                   "name": "backgroundImage",
@@ -209,6 +209,44 @@
             "da": {
               "unsafeHTML": "<div></div>",
               "behaviour": "columns-cell"
+            }
+          }
+        },
+        {
+          "title": "Dual Image Text",
+          "id": "dualimagetext",
+          "model": "dualimagetext",
+          "plugins": {
+            "da": {
+              "name": "dualimagetext",
+              "rows": 1,
+              "columns": 4,
+              "fields": [
+                {
+                  "name": "image1",
+                  "selector": "div:nth-child(1)>div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "image1Alt",
+                  "selector": "div:nth-child(1)>div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "eyebrowText",
+                  "selector": "div:nth-child(2)>div:nth-child(1)>p"
+                },
+                {
+                  "name": "headingText",
+                  "selector": "div:nth-child(3)>div:nth-child(1)"
+                },
+                {
+                  "name": "image2",
+                  "selector": "div:nth-child(4)>div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "image2Alt",
+                  "selector": "div:nth-child(4)>div:nth-child(1)>picture>img[alt]"
+                }
+              ]
             }
           }
         },
