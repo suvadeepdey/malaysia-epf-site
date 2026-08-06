@@ -46,6 +46,12 @@
     ]
   },
   {
+    "id": "collagetext",
+    "components": [
+      "collagetext-item"
+    ]
+  },
+  {
     "id": "columns",
     "components": [
       "columns-row"

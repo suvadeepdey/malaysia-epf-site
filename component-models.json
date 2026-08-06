@@ -251,6 +251,67 @@
     ]
   },
   {
+    "id": "collagetext-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "categoryText",
+        "label": "Category (Eyebrow)",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "headingText",
+        "label": "Heading / Sub-heading Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "size",
+        "label": "Tile Size",
+        "options": [
+          {
+            "name": "Large",
+            "value": "size-large"
+          },
+          {
+            "name": "Medium",
+            "value": "size-medium"
+          },
+          {
+            "name": "Small",
+            "value": "size-small"
+          }
+        ],
+        "value": "size-medium"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
