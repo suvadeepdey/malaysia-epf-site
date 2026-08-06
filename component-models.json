@@ -286,6 +286,53 @@
     ]
   },
   {
+    "id": "dualimagetext",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image1",
+        "label": "Image 1",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "image1Alt",
+        "label": "Image 1 Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrowText",
+        "label": "Text Line 1 (Eyebrow)",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "headingText",
+        "label": "Text Line 2 (Heading)",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image2",
+        "label": "Image 2",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "image2Alt",
+        "label": "Image 2 Alt Text",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "dynamicmedia-template",
     "fields": [
       {
