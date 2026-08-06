@@ -6,7 +6,7 @@
 --------------------------- */
 .collagetext-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   grid-auto-rows: minmax(130px, auto);
   grid-auto-flow: dense;
   gap: var(--spacing-xsmall);
@@ -23,7 +23,6 @@
 }
 
 .collagetext-item.size-large {
-  grid-column: span 2;
   grid-row: span 2;
 }
 
@@ -35,6 +34,12 @@
   text-decoration: none;
   white-space: normal;
   overflow: visible;
+}
+
+/* the whole tile (image + text) is already the link, so the global
+   link-arrow indicator added to every <a> would be redundant here */
+.collagetext-item .collagetext-item-link::after {
+  content: none;
 }
 
 .collagetext-item-image {
@@ -105,6 +110,10 @@
   .collagetext-list {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(120px, auto);
+  }
+
+  .collagetext-item.size-large {
+    grid-column: span 2;
   }
 }
 
