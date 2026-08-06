@@ -1,0 +1,119 @@
+/* --------------------------
+   Base Layout (mobile first)
+--------------------------- */
+.dualimagetext {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-large);
+  padding: var(--spacing-large) var(--spacing-regular);
+  background-color: var(--background-color);
+}
+
+.dualimagetext-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.dualimagetext-image picture {
+  width: 100%;
+  max-width: 480px;
+}
+
+.dualimagetext-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --------------------------
+   Text Content
+--------------------------- */
+.dualimagetext-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-small);
+  max-width: 640px;
+}
+
+.dualimagetext-eyebrow p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-disabled);
+}
+
+.dualimagetext-heading p,
+.dualimagetext-heading h1,
+.dualimagetext-heading h2,
+.dualimagetext-heading h3,
+.dualimagetext-heading h4 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  font-size: var(--heading-font-size-s);
+  line-height: 1.35;
+  color: var(--text-color);
+}
+
+/* --------------------------
+   Tablet (600px+)
+--------------------------- */
+@media (width >= 600px) {
+  .dualimagetext-heading p,
+  .dualimagetext-heading h1,
+  .dualimagetext-heading h2,
+  .dualimagetext-heading h3,
+  .dualimagetext-heading h4 {
+    font-size: var(--heading-font-size-m);
+  }
+}
+
+/* --------------------------
+   Desktop (900px+)
+--------------------------- */
+@media (width >= 900px) {
+  .dualimagetext {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xlarge);
+    padding: var(--spacing-xlarge) var(--spacing-large);
+  }
+
+  .dualimagetext-image {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+
+  .dualimagetext-image picture {
+    max-width: 100%;
+  }
+
+  .dualimagetext-content {
+    flex: 0 0 auto;
+  }
+}
+
+/* --------------------------
+   Large Desktop (1200px+)
+--------------------------- */
+@media (width >= 1200px) {
+  .dualimagetext {
+    gap: var(--spacing-xxlarge);
+    padding: var(--spacing-xxlarge) var(--spacing-large);
+  }
+
+  .dualimagetext-heading p,
+  .dualimagetext-heading h1,
+  .dualimagetext-heading h2,
+  .dualimagetext-heading h3,
+  .dualimagetext-heading h4 {
+    font-size: var(--heading-font-size-l);
+  }
+}
