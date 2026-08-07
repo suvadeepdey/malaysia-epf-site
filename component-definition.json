@@ -81,6 +81,31 @@
           }
         },
         {
+          "title": "Button",
+          "id": "button",
+          "model": "button",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "label",
+                  "selector": "div:nth-child(1)>div:nth-child(1)>p"
+                },
+                {
+                  "name": "link",
+                  "selector": "div:nth-child(2)>div:nth-child(1)>a[href]"
+                },
+                {
+                  "name": "style",
+                  "selector": "div:nth-child(3)>div:nth-child(1)>p"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "model": "cards",

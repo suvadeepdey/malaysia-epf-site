@@ -91,6 +91,51 @@
     ]
   },
   {
+    "id": "button",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "required": true
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "style",
+        "label": "Button Style",
+        "options": [
+          {
+            "name": "Link",
+            "value": "link"
+          },
+          {
+            "name": "Primary Button",
+            "value": "primary-button"
+          },
+          {
+            "name": "Secondary Button",
+            "value": "secondary-button"
+          },
+          {
+            "name": "Dark Button",
+            "value": "dark-button"
+          }
+        ],
+        "value": "primary-button",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
