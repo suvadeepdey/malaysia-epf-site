@@ -7,11 +7,11 @@
       "plugins": {
         "da": {
           "rows": 1,
-          "columns": 1,
+          "columns": 3,
           "fields": [
             { "name": "label", "selector": "div:nth-child(1)>div:nth-child(1)>p" },
             { "name": "link", "selector": "div:nth-child(2)>div:nth-child(1)>a[href]" },
-            { "name": "style", "selector": "div:nth-child(3)>div:nth-child(1)>p" }
+            { "name": "buttonStyle", "selector": "div:nth-child(3)>div:nth-child(1)>p" }
           ]
         }
       }
@@ -38,7 +38,7 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "style",
+          "name": "buttonStyle",
           "label": "Button Style",
           "options": [
             { "name": "Link", "value": "link" },
