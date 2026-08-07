@@ -105,9 +105,9 @@ html[dir="rtl"] .carousel-container .carousel-wrapper .carousel > p.button-conta
 
 .carousel-container .carousel-wrapper .carousel .cards-card-image {
   line-height: 0;
-  flex: 0 0 600px;
-  height: 600px;
-  max-height: 70vh;
+  flex: 0 0 700px;
+  height: 700px;
+  max-height: 75vh;
   overflow: hidden;
 }
 
@@ -546,6 +546,11 @@ html[dir="rtl"] .carousel-container .carousel-wrapper .carousel > p.button-conta
 }
 
 /* buttons */
+.carousel-container .carousel-wrapper .carousel .cards-card-body p.button-container {
+  display: block;
+  margin-top: 32px;
+}
+
 .carousel-container .carousel-wrapper .carousel .cards-card-body p.button-container.primary-button a.button {
   display: inline-block;
   background-color: #0a5eb5;
@@ -632,9 +637,17 @@ html[dir="rtl"] .carousel-container .carousel-wrapper .carousel > p.button-conta
 
 }
 
-@media (width < 768px) { 
+@media (width < 768px) {
   .carousel-container .carousel-wrapper .carousel {
     padding: 0 4%;
+  }
+
+  .carousel-container .carousel-wrapper .carousel .cards-card-image {
+    max-height: 80vh;
+  }
+
+  .carousel-container .carousel-wrapper .carousel > ul > li img {
+    object-position: 80% center;
   }
 
 }
